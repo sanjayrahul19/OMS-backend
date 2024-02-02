@@ -1,18 +1,12 @@
 import Joi from 'joi';
 import { responseHandler } from '../../../../utils/response-handler';
 
-class AdminValidator {
+class HrValidator {
     constructor() {
         this.schemas = {
             signup: Joi.object({
                 name: Joi.string().required().error(new Error("Name is required")),
                 email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required().error(new Error("Valid email is required")),
-                phone_number: Joi.string().pattern(/^\+?[0-9\s]+$/).min(4).max(15).required().messages({
-                    'string.pattern.base': 'Phone number must only contain digits',
-                    "string.min": "Phone number must be minimum 4 digit number",
-                    "string.max": "Phone number must be maximum 15 digit number",
-                    "any.required": "Phone number is required"
-                }),
                 password: Joi.string().required().error(new Error("Please enter a valid password")),
             }),
 
@@ -24,13 +18,6 @@ class AdminValidator {
             update: Joi.object({
                 name: Joi.string().error(new Error("Enter a valid name")),
                 email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).error(new Error("Enter a valid email")),
-                phone_number: Joi.string().pattern(/^\+?[0-9\s]+$/).min(4).max(15).messages({
-                    'string.pattern.': 'Phone number must only contain digits',
-                    "string.min": "Phone number must be minimum 4 digit number",
-                    "string.max": "Phone number must be maximum 15 digit number",
-                    "any.required": "Phone number is required"
-                }),
-                is_private: Joi.boolean().error(new Error("Choose a proper account type")),
             }),
         };
     }
@@ -53,4 +40,4 @@ class AdminValidator {
     update = this.validateAndNext('update');
 }
 
-export default new AdminValidator();
+export default new HrValidator();

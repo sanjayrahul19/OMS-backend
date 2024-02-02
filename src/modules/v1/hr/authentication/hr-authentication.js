@@ -2,7 +2,7 @@ import passport from 'passport';
 import { Strategy } from 'passport-strategy';
 import { Session } from '../models/session-model';
 import { responseHandler } from '../../../../utils/response-handler';
-import { User } from '../../user/models/user-model';
+import { Hr } from '../models/hr-model';
 
 class CustomAdminAuthStrategy extends Strategy {
     constructor() {
@@ -25,7 +25,7 @@ class CustomAdminAuthStrategy extends Strategy {
                 return this.fail('Invalid session token', 401);
             }
 
-            const admin = await User.findOne({ _id: result.user_id, role: "HR" });
+            const admin = await Hr.findOne({ _id: result.user_id });
           
             if (!admin) {
                 return this.fail('Access denied', 401);

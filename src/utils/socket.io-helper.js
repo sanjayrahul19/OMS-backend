@@ -1,4 +1,4 @@
-import { Admin } from "../modules/v1/hr/models/admin-model";
+import { Hr } from "../modules/v1/hr/models/hr-model";
 import { Session } from "../modules/v1/hr/models/session-model";
 import { User } from "../modules/v1/user/models/user-model";
 
@@ -101,7 +101,7 @@ class ChatHelper {
 
             const [checkMember, checkAdmin] = await Promise.all([
                 User.findById(id),
-                Admin.findById(id),
+                Hr.findById(id),
             ]);
 
             if (!checkMember && !checkAdmin) {
